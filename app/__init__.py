@@ -1,0 +1,1 @@
+"""Myan OCR server package."""

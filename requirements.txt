@@ -1,0 +1,11 @@
+# Known-good environment versions used for v0.1.3 local tests.
+# Rebuild and review security releases before public deployments.
+fastapi==0.128.2
+uvicorn[standard]==0.48.0
+python-multipart==0.0.29
+Pillow==12.3.0
+pytesseract==0.3.13
+opencv-python-headless==4.13.0.92
+numpy==2.3.5
+httpx==0.28.1
+pypdfium2==5.8.0

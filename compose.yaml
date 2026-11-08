@@ -1,0 +1,28 @@
+services:
+  myan-ocr:
+    build: .
+    ports:
+      - "127.0.0.1:8388:8388"
+    restart: unless-stopped
+    mem_limit: 1g
+    cpus: 2.0
+    pids_limit: 128
+    environment:
+      GOOGLE_CLOUD_API_KEY: ${GOOGLE_CLOUD_API_KEY:-}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-}
+      OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
+      TRANSLATION_PROVIDER: ${TRANSLATION_PROVIDER:-auto}
+      OCR_MAX_CONCURRENT: ${OCR_MAX_CONCURRENT:-2}
+      API_REQUESTS_PER_MINUTE: ${API_REQUESTS_PER_MINUTE:-30}
+      MYAN_OCR_LOCAL_DEV: ${MYAN_OCR_LOCAL_DEV:-1}
+      MYAN_OCR_ALLOWED_HOSTS: ${MYAN_OCR_ALLOWED_HOSTS:-localhost,127.0.0.1,testserver}
+      OCR_JOB_DEADLINE_SECONDS: ${OCR_JOB_DEADLINE_SECONDS:-75}
+      MYAN_OCR_API_KEY: ${MYAN_OCR_API_KEY:-}
+      TESSDATA_PREFIX: ${TESSDATA_PREFIX:-}
+    volumes:
+      - ./models:/models:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8388/api/health', timeout=5)"]
+      interval: 30s
+      timeout: 8s
+      retries: 3
