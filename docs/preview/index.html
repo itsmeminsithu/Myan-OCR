@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Myan OCR — Live Demo · Myanmar & English OCR</title>
+<meta name="description" content="Try Myan OCR in your browser: upload an image with printed Myanmar or English text and extract the text. Demo runs fully in your browser.">
+<link rel="stylesheet" href="styles.css">
+<style>
+.demo-wrap{max-width:860px;margin:0 auto;padding:24px 16px 48px}
+.demo-card{background:#fff;border:1px solid #dbe4f2;border-radius:16px;padding:22px;margin:18px 0;box-shadow:0 10px 28px rgba(15,23,41,.08)}
+.demo-note{background:#fff7d6;border:1px solid #e8c95a;border-radius:10px;padding:12px 16px;line-height:1.65}
+.demo-drop{border:2px dashed #b9c8e4;border-radius:14px;padding:28px;text-align:center;background:#f6f9ff}
+.demo-drop button,.demo-btn{background:#1d4ed8;color:#fff;border:0;border-radius:10px;padding:11px 20px;font-weight:700;cursor:pointer}
+.demo-btn.soft{background:#fff;color:#1d4ed8;border:1px solid #1d4ed8}
+.demo-btn:disabled{opacity:.5;cursor:wait}
+.demo-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}
+.demo-row select{padding:10px;border:1px solid #c4d2ea;border-radius:10px}
+#previewImg{max-width:100%;border-radius:10px;margin-top:12px}
+#outText{width:100%;min-height:180px;padding:12px;border:1px solid #c4d2ea;border-radius:10px;font-size:16px;line-height:1.7}
+#status{color:#39507e;min-height:24px}
+.demo-links a{margin-right:16px;font-weight:600}
+</style>
+</head>
+<body>
+<div class="demo-wrap">
+<p class="demo-links"><a href="https://github.com/itsmeminsithu/Myan-OCR">GitHub source</a><a href="https://minsithu.org/myan-ocr-%e1%80%86%e1%80%ad%e1%80%af%e1%80%90%e1%80%ac-%e1%80%98%e1%80%ac%e1%80%9c%e1%80%b2/">About the project</a></p>
+<h1>Myan OCR — live demo</h1>
+<p>Upload an image with <strong>printed</strong> Myanmar or English text and extract the text, right here in your browser. Or tap “Try the sample image” to see it work straight away.</p>
+<p class="demo-note"><strong>How this demo works:</strong> it runs Tesseract OCR inside your browser (Tesseract.js) — your image never leaves your device. The full app on GitHub runs the same Tesseract engine on a Python/FastAPI backend and adds PDF pages, batch images, camera tools, detected-text boxes and optional translation, so results can differ from this demo. Always check the extracted text against the original image.</p>
+<div class="demo-card">
+<div class="demo-drop">
+<p><strong>Drop an image here</strong> or choose one from your device (JPG, PNG, WebP)</p>
+<button type="button" id="browseBtn">Browse files</button>
+<button type="button" class="demo-btn soft" id="sampleBtn">Try the sample image</button>
+<input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" hidden>
+<img id="previewImg" alt="" hidden>
+</div>
+<div class="demo-row">
+<label>Text language
+<select id="langSel">
+<option value="mya+eng" selected>Myanmar + English</option>
+<option value="mya">Myanmar only</option>
+<option value="eng">English only</option>
+</select></label>
+<button type="button" class="demo-btn" id="scanBtn" disabled>Recognize text →</button>
+<span id="status">Choose an image first.</span>
+</div>
+</div>
+<div class="demo-card">
+<h2>Extracted text</h2>
+<textarea id="outText" placeholder="Your text will appear here. You can edit it before copying."></textarea>
+<div class="demo-row">
+<button type="button" class="demo-btn" id="copyBtn">Copy text</button>
+<button type="button" class="demo-btn soft" id="dlBtn">Download .txt</button>
+<span id="conf"></span>
+</div>
+<p>Full source, install instructions (Docker or Python + Tesseract), and the accuracy notes are on <a href="https://github.com/itsmeminsithu/Myan-OCR">GitHub</a>. Developed by Min SiThu · minsithu.org</p>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="demo.js"></script>
+</body>
+</html>
